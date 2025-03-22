@@ -11,9 +11,10 @@ namespace espbt = esphome::esp32_ble_tracker;
 
 //static const char *const SERVICE_UUID = "b42e1c08-ade7-11e4-89d3-123b93f75cba";
 //static const char *const CHARACTERISTIC_UUID = "b42e2a68-ade7-11e4-89d3-123b93f75cba";
+//static const char *const ACCESS_CONTROL_POINT_CHARACTERISTIC_UUID = "b42e2d06-ade7-11e4-89d3-123b93f75cba";
 static const char *const SERVICE_UUID = "b42e4a8e-ade7-11e4-89d3-123b93f75cba";
 static const char *const CHARACTERISTIC_UUID = "b42e4dcc-ade7-11e4-89d3-123b93f75cba";
-static const char *const ACCESS_CONTROL_POINT_CHARACTERISTIC_UUID = "b42e2d06-ade7-11e4-89d3-123b93f75cba";
+static const char *const ACCESS_CONTROL_POINT_CHARACTERISTIC_UUID = "b42e538a-ade7-11e4-89d3-123b93f75cba";
 
 class AirthingsWavePlus : public airthings_wave_base::AirthingsWaveBase {
  public:
