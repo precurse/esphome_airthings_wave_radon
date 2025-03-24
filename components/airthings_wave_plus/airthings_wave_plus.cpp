@@ -79,15 +79,17 @@ void AirthingsWavePlus::setup() {
   const char* access_control_point_characteristic_uuid;
 
   // Change UUIDs for Wave Radon Gen2
-  if (this->wave_radon_gen2_) {
-    service_uuid = SERVICE_UUID_WAVE_RADON_GEN2;
-    characteristic_uuid = CHARACTERISTIC_UUID_WAVE_RADON_GEN2;
-    access_control_point_characteristic_uuid = ACCESS_CONTROL_POINT_CHARACTERISTIC_UUID_WAVE_RADON_GEN2;
-  } else {
-    // Airthings Wave Plus
-    service_uuid = SERVICE_UUID;
-    characteristic_uuid = CHARACTERISTIC_UUID;
-    access_control_point_characteristic_uuid = ACCESS_CONTROL_POINT_CHARACTERISTIC_UUID;
+  switch (this->wave_device_type_) {
+    case WAVEDEVICETYPE::WAVE_GEN2:
+      service_uuid = SERVICE_UUID_WAVE_RADON_GEN2;
+      characteristic_uuid = CHARACTERISTIC_UUID_WAVE_RADON_GEN2;
+      access_control_point_characteristic_uuid = ACCESS_CONTROL_POINT_CHARACTERISTIC_UUID_WAVE_RADON_GEN2;
+      break;
+    default:
+      // Wave Plus
+      service_uuid = SERVICE_UUID;
+      characteristic_uuid = CHARACTERISTIC_UUID;
+      access_control_point_characteristic_uuid = ACCESS_CONTROL_POINT_CHARACTERISTIC_UUID;
   }
 
   this->service_uuid_ = espbt::ESPBTUUID::from_raw(service_uuid);

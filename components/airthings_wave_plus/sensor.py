@@ -26,7 +26,12 @@ AirthingsWavePlus = airthings_wave_plus_ns.class_(
     "AirthingsWavePlus", airthings_wave_base.AirthingsWaveBase
 )
 
-CONF_WAVE_RADON_GEN2_FLAG = "wave_radon_gen2"
+CONF_DEVICE_TYPE = "device_type"
+WAVEDEVICETYPE = airthings_wave_plus_ns.enum("WAVEDEVICETYPE")
+DEVICE_TYPES = {
+    "WAVE_PLUS": WAVEDEVICETYPE.WAVE_PLUS,
+    "WAVE_GEN2": WAVEDEVICETYPE.WAVE_GEN2,
+}
 
 CONFIG_SCHEMA = airthings_wave_base.BASE_SCHEMA.extend(
     {
@@ -55,7 +60,8 @@ CONFIG_SCHEMA = airthings_wave_base.BASE_SCHEMA.extend(
             device_class=DEVICE_CLASS_ILLUMINANCE,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
-        cv.Optional(CONF_WAVE_RADON_GEN2_FLAG,default=False): cv.boolean,
+        cv.Optional(CONF_DEVICE_TYPE,
+            default="WAVE_PLUS"): cv.enum(DEVICE_TYPES, upper=True),
     }
 )
 
@@ -76,5 +82,5 @@ async def to_code(config):
     if config_illuminance := config.get(CONF_ILLUMINANCE):
         sens = await sensor.new_sensor(config_illuminance)
         cg.add(var.set_illuminance(sens))
-    if CONF_WAVE_RADON_GEN2_FLAG in config:
-        cg.add(var.set_wave_radon_gen2(config[CONF_WAVE_RADON_GEN2_FLAG]))
+    if config_device_type := config.get(CONF_DEVICE_TYPE):
+        cg.add(var.set_device_type(config_device_type))
